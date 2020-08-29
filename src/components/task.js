@@ -11,7 +11,7 @@ const Task = function(props) {
       onClick={() => props.onClick(task.id)}
     >
       <div className="taskIcon"></div>
-      <p className="taskContent">{task.name}</p>
+      <p className="taskContent">{task.content}</p>
     </div>
   );
 };
