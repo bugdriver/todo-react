@@ -21,10 +21,10 @@ class Todo extends React.Component {
     });
   }
 
-  addTask(taskName) {
+  addTask(content) {
     this.setState(({ tasks }) => {
       const newTasks = tasks.slice();
-      const newTask = { id: tasks.length + 1, content: taskName, done: false };
+      const newTask = { id: tasks.length + 1, content, done: false };
       newTasks.push(newTask);
       return { tasks: newTasks };
     });
@@ -38,7 +38,7 @@ class Todo extends React.Component {
       <div style={{ margin: '10em' }}>
         <h3>TODO</h3>
         {taskList}
-        <br></br>
+        <br />
         <TextInput onEnterPress={this.addTask} />
       </div>
     );
