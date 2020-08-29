@@ -1,6 +1,6 @@
 import React from 'react';
-import Task from './task';
 import TextInput from './textInput';
+import TaskList from './taskList';
 
 class Todo extends React.Component {
   constructor(props) {
@@ -9,10 +9,10 @@ class Todo extends React.Component {
       tasks: []
     };
     this.addTask = this.addTask.bind(this);
-    this.updateTask = this.updateTask.bind(this);
+    this.updateTaskStatus = this.updateTaskStatus.bind(this);
   }
 
-  updateTask(taskId) {
+  updateTaskStatus(taskId) {
     this.setState(({ tasks }) => {
       const newTasks = tasks.map((task) => ({ ...task }));
       const taskToUpdate = newTasks.find((task) => task.id === taskId);
@@ -31,13 +31,10 @@ class Todo extends React.Component {
   }
 
   render() {
-    const taskList = this.state.tasks.map((task) => {
-      return <Task task={task} key={task.id} onClick={this.updateTask} />;
-    });
     return (
       <div style={{ margin: '10em' }}>
         <h3>TODO</h3>
-        {taskList}
+        <TaskList tasks={this.state.tasks} onClick={this.updateTaskStatus} />
         <br />
         <TextInput onEnterPress={this.addTask} />
       </div>
