@@ -1,0 +1,31 @@
+.taskContainer {
+  display: flex;
+  align-items: center;
+  height: 2em;
+  cursor: pointer;
+}
+
+.taskContent {
+  margin-left: 1em;
+}
+
+.taskIcon {
+  height: 1.5em;
+  width: 0.7em;
+}
+
+.done .taskIcon {
+  background-color: mediumseagreen;
+}
+
+.todo .taskIcon {
+  background-color: lightblue;
+}
+
+.done .taskContent {
+  text-decoration: line-through;
+}
+
+.todo .taskContent {
+  text-decoration: none;
+}
