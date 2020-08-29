@@ -3,11 +3,11 @@ import '../task.css';
 
 const Task = function(props) {
   const { task } = props;
-  const stylename = task.done ? 'done' : 'todo';
+  const taskStatus = task.done ? 'done' : 'todo';
   return (
     <div
       key={task.id}
-      className={`taskContainer ${stylename}`}
+      className={`taskContainer ${taskStatus}`}
       onClick={() => props.onClick(task.id)}
     >
       <div className="taskIcon"></div>
