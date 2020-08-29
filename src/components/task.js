@@ -6,7 +6,6 @@ const Task = function(props) {
   const taskStatus = task.done ? 'done' : 'todo';
   return (
     <div
-      key={task.id}
       className={`taskContainer ${taskStatus}`}
       onClick={() => props.onClick(task.id)}
     >
