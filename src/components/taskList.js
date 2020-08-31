@@ -10,6 +10,7 @@ const TaskList = function(props) {
         key={task.id}
         onComplete={props.onComplete}
         onProcess={props.onProcess}
+        onDue={props.onDue}
       />
     );
   });

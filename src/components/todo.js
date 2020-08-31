@@ -9,32 +9,30 @@ class Todo extends React.Component {
       tasks: []
     };
     this.addTask = this.addTask.bind(this);
-    this.toggleTaskCompleteStatus = this.toggleTaskCompleteStatus.bind(this);
+    this.markTaskAsDue = this.markTaskAsDue.bind(this);
+    this.markTaskAsCompleted = this.markTaskAsCompleted.bind(this);
     this.markTaskInProgress = this.markTaskInProgress.bind(this);
   }
 
-  toggleTaskCompleteStatus(taskId) {
+  updateTaskStatus(taskId, status) {
     this.setState(({ tasks }) => {
       const newTasks = tasks.map((task) => ({ ...task }));
       const taskToUpdate = newTasks.find((task) => task.id === taskId);
-      taskToUpdate.status = {
-        inProcess: false,
-        isCompleted: !taskToUpdate.status.isCompleted
-      };
+      taskToUpdate.status = status;
       return { tasks: newTasks };
     });
   }
 
+  markTaskAsDue(taskId) {
+    this.updateTaskStatus(taskId, { isCompleted: false, inProcess: false });
+  }
+
+  markTaskAsCompleted(taskId) {
+    this.updateTaskStatus(taskId, { isCompleted: true, inProcess: false });
+  }
+
   markTaskInProgress(taskId) {
-    this.setState(({ tasks }) => {
-      const newTasks = tasks.map((task) => ({ ...task }));
-      const taskToUpdate = newTasks.find((task) => task.id === taskId);
-      taskToUpdate.status = {
-        inProcess: true,
-        isCompleted: false
-      };
-      return { tasks: newTasks };
-    });
+    this.updateTaskStatus(taskId, { inCompleted: false, inProcess: true });
   }
 
   addTask(content) {
@@ -56,8 +54,9 @@ class Todo extends React.Component {
         <h3>TODO</h3>
         <TaskList
           tasks={this.state.tasks}
-          onComplete={this.toggleTaskCompleteStatus}
+          onComplete={this.markTaskAsCompleted}
           onProcess={this.markTaskInProgress}
+          onDue={this.markTaskAsDue}
         />
         <br />
         <TextInput onEnterPress={this.addTask} />

@@ -2,10 +2,22 @@ import React from 'react';
 import '../task.css';
 
 const Task = function(props) {
-  const { id, content, status } = props.task;
+  const { task, onComplete, onDue, onProcess } = props;
+  const { id, content, status } = task;
   const { isCompleted, inProcess } = status;
-  const onClick = inProcess || isCompleted ? props.onComplete : props.onProcess;
-  const taskStatus = inProcess ? 'processing' : isCompleted ? 'completed' : 'todo';
+  let onClick = onProcess;
+  let taskStatus = 'todo';
+
+  if (inProcess) {
+    onClick = onComplete;
+    taskStatus = 'processing';
+  }
+
+  if (isCompleted) {
+    onClick = onDue;
+    taskStatus = 'completed';
+  }
+
   return (
     <div className={`taskContainer ${taskStatus}`} onClick={() => onClick(id)}>
       <div className="taskIcon"></div>
