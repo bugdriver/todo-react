@@ -14,7 +14,7 @@
   width: 0.7em;
 }
 
-.done .taskIcon {
+.completed .taskIcon {
   background-color: mediumseagreen;
 }
 
@@ -22,10 +22,14 @@
   background-color: lightblue;
 }
 
-.done .taskContent {
+.completed .taskContent {
   text-decoration: line-through;
 }
 
 .todo .taskContent {
   text-decoration: none;
+}
+
+.processing .taskIcon {
+  background-color: orange;
 }

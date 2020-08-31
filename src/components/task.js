@@ -2,15 +2,14 @@ import React from 'react';
 import '../task.css';
 
 const Task = function(props) {
-  const { task } = props;
-  const taskStatus = task.done ? 'done' : 'todo';
+  const { id, content, status } = props.task;
+  const { isCompleted, inProcess } = status;
+  const onClick = inProcess || isCompleted ? props.onComplete : props.onProcess;
+  const taskStatus = inProcess ? 'processing' : isCompleted ? 'completed' : 'todo';
   return (
-    <div
-      className={`taskContainer ${taskStatus}`}
-      onClick={() => props.onClick(task.id)}
-    >
+    <div className={`taskContainer ${taskStatus}`} onClick={() => onClick(id)}>
       <div className="taskIcon"></div>
-      <p className="taskContent">{task.content}</p>
+      <p className="taskContent">{content}</p>
     </div>
   );
 };
