@@ -38,11 +38,8 @@ class Todo extends React.Component {
   addTask(content) {
     this.setState(({ tasks }) => {
       const newTasks = tasks.slice();
-      const newTask = {
-        id: tasks.length + 1,
-        content,
-        status: { isCompleted: false, inProcess: false }
-      };
+      const status = { isCompleted: false, inProcess: false };
+      const newTask = { id: tasks.length + 1, content, status };
       newTasks.push(newTask);
       return { tasks: newTasks };
     });
