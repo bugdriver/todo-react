@@ -4,15 +4,7 @@ import Task from './task';
 const TaskList = function(props) {
   const { tasks } = props;
   const taskList = tasks.map((task) => {
-    return (
-      <Task
-        task={task}
-        key={task.id}
-        onComplete={props.onComplete}
-        onProcess={props.onProcess}
-        onDue={props.onDue}
-      />
-    );
+    return <Task task={task} key={task.id} onClick={props.onClick} />;
   });
   return <div>{taskList}</div>;
 };

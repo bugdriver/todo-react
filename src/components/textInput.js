@@ -3,7 +3,7 @@ import React from 'react';
 class TextInput extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: '' };
+    this.state = { value: props.value || '' };
     this.handleChange = this.handleChange.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
   }
@@ -24,6 +24,7 @@ class TextInput extends React.Component {
     return (
       <input
         type="text"
+        className={this.props.className}
         value={this.state.value}
         onKeyUp={this.handleKeyUp}
         onChange={this.handleChange}

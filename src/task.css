@@ -5,8 +5,18 @@
   cursor: pointer;
 }
 
+.todoTitle {
+  font-size: larger;
+  font-weight: bold;
+}
+
+.taskInput {
+  font-size: larger;
+}
+
 .taskContent {
   margin-left: 1em;
+  font-size: larger;
 }
 
 .taskIcon {
@@ -30,6 +40,6 @@
   text-decoration: none;
 }
 
-.processing .taskIcon {
+.working .taskIcon {
   background-color: orange;
 }
