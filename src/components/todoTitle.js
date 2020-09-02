@@ -29,13 +29,13 @@ class TodoTitle extends React.Component {
       );
     }
     return (
-      <p
+      <div
         className="todoTitle"
         onClick={this.handleClick}
         style={{ cursor: 'pointer' }}
       >
         {this.props.value}
-      </p>
+      </div>
     );
   }
 }
