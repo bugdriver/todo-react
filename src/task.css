@@ -6,8 +6,12 @@
 }
 
 .todoTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-size: larger;
   font-weight: bold;
+  width: 75%;
 }
 
 .taskInput {
@@ -29,13 +33,18 @@
   width: 0.7em;
 }
 
-.deleteTaskBtn {
+.deleteTaskBtn,
+.deleteTodoBtn {
   display: none;
   color: grey;
   font-weight: bold;
 }
 
 .taskContent:hover .deleteTaskBtn {
+  display: block;
+}
+
+.todoTitle:hover .deleteTodoBtn {
   display: block;
 }
 

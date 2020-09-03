@@ -1,5 +1,6 @@
 import React from 'react';
 import TextInput from './textInput';
+import DeleteButton from './deleteButton';
 
 class TodoTitle extends React.Component {
   constructor(props) {
@@ -29,12 +30,12 @@ class TodoTitle extends React.Component {
       );
     }
     return (
-      <div
-        className="todoTitle"
-        onClick={this.handleClick}
-        style={{ cursor: 'pointer' }}
-      >
-        {this.props.value}
+      <div className="todoTitle" style={{ cursor: 'pointer' }}>
+        <p onClick={this.handleClick}>{this.props.value}</p>
+        <DeleteButton
+          className="deleteTodoBtn"
+          onClick={() => this.props.deleteTodo()}
+        />
       </div>
     );
   }

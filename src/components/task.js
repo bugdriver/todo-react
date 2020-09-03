@@ -1,16 +1,18 @@
 import React from 'react';
 import '../task.css';
+import DeleteButton from './deleteButton';
 
-const Task = function(props) {
+const Task = (props) => {
   const { id, content, status } = props.task;
   return (
     <div className={`taskContainer ${status}`}>
       <div className="taskIcon"></div>
       <div className="taskContent">
         <p onClick={() => props.onClick(id)}>{content}</p>
-        <span className="deleteTaskBtn" onClick={() => props.onDelete(id)}>
-          X
-        </span>
+        <DeleteButton
+          className="deleteTaskBtn"
+          onClick={() => props.onDelete(id)}
+        />
       </div>
     </div>
   );
