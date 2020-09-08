@@ -1,44 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TextInput from './textInput';
 import DeleteButton from './deleteButton';
 
-class TodoTitle extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { isEditable: false };
-    this.handleClick = this.handleClick.bind(this);
-    this.handleTitleChange = this.handleTitleChange.bind(this);
-  }
+const TodoTitle = (props) => {
+  const [isEditable, setEditable] = useState(false);
 
-  handleClick() {
-    this.setState({ isEditable: true });
-  }
+  const { value, onChange, deleteTodo } = props;
 
-  handleTitleChange(value) {
-    this.setState({ isEditable: false });
-    this.props.onChange(value);
-  }
+  const handleClick = () => {
+    setEditable(true);
+  };
 
-  render() {
-    if (this.state.isEditable) {
-      return (
-        <TextInput
-          className="todoTitle"
-          value={this.props.value}
-          onEnterPress={this.handleTitleChange}
-        />
-      );
-    }
-    return (
-      <div className="todoTitle" style={{ cursor: 'pointer' }}>
-        <p onClick={this.handleClick}>{this.props.value}</p>
-        <DeleteButton
-          className="deleteTodoBtn"
-          onClick={() => this.props.deleteTodo()}
-        />
-      </div>
-    );
-  }
-}
+  const handleTitleChange = (value) => {
+    setEditable(false);
+    onChange(value);
+  };
+
+  return isEditable ? (
+    <TextInput
+      className="todoTitle"
+      value={value}
+      onEnterPress={handleTitleChange}
+    />
+  ) : (
+    <div className="todoTitle" style={{ cursor: 'pointer' }}>
+      <p onClick={handleClick}>{value}</p>
+      <DeleteButton className="deleteTodoBtn" onClick={() => deleteTodo()} />
+    </div>
+  );
+};
 
 export default TodoTitle;

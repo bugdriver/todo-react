@@ -1,78 +1,53 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import TextInput from './textInput';
 import TaskList from './taskList';
-import { getDefaultStatus, getNextStatus } from './status';
 import TodoTitle from './todoTitle';
+import requestApi from './requestApi';
 
-class Todo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { title: 'Todo', tasks: [] };
-    this.lastTaskId = 0;
-    this.addTask = this.addTask.bind(this);
-    this.toggleTaskStatus = this.toggleTaskStatus.bind(this);
-    this.updateTitle = this.updateTitle.bind(this);
-    this.deleteTask = this.deleteTask.bind(this);
-    this.deleteTodo = this.deleteTodo.bind(this);
-  }
+const Todo = (props) => {
+  const [todo, setTodo] = useState({ title: '', tasks: [], lastTaskId: 0 });
 
-  toggleTaskStatus(taskId) {
-    this.setState(({ title, tasks }) => {
-      const newTasks = tasks.map((task) => ({ ...task }));
-      const taskToUpdate = newTasks.find((task) => task.id === taskId);
-      taskToUpdate.status = getNextStatus(taskToUpdate.status);
-      return { title, tasks: newTasks };
-    });
-  }
+  const updateTodo = () => requestApi.getTodo().then(setTodo);
 
-  addTask(content) {
-    const taskId = this.lastTaskId + 1;
-    this.setState(({ title, tasks }) => ({
-      title,
-      tasks: tasks.concat({
-        id: taskId,
-        content,
-        status: getDefaultStatus()
-      })
-    }));
-    this.lastTaskId = taskId;
-  }
+  const toggleTaskStatus = (taskId) => {
+    requestApi.toggleTaskStatus(taskId).then(updateTodo);
+  };
 
-  deleteTask(taskId) {
-    this.setState(({ title, tasks }) => ({
-      tasks: tasks.filter((task) => task.id !== taskId),
-      title
-    }));
-  }
+  useEffect(updateTodo, []);
 
-  updateTitle(title) {
-    this.setState((prevState) => ({ ...prevState, title }));
-  }
+  const addTask = (content) => {
+    requestApi.addTask(content).then(updateTodo);
+  };
 
-  deleteTodo() {
-    this.setState({ title: 'Todo', tasks: [] });
-  }
+  const deleteTask = (taskId) => {
+    requestApi.deleteTask(taskId).then(updateTodo);
+  };
 
-  render() {
-    return (
-      <div style={{ margin: '10em', width: '20%' }}>
-        <div>
-          <TodoTitle
-            value={this.state.title}
-            onChange={this.updateTitle}
-            deleteTodo={this.deleteTodo}
-          />
-        </div>
-        <TaskList
-          tasks={this.state.tasks}
-          onClick={this.toggleTaskStatus}
-          onDelete={this.deleteTask}
+  const setTitle = (title) => {
+    requestApi.setTitle(title).then(updateTodo);
+  };
+
+  const deleteTodo = () => {
+    requestApi.resetTodo().then(updateTodo);
+  };
+
+  return (
+    <div style={{ margin: '10em', width: '20%' }}>
+      <div>
+        <TodoTitle
+          value={todo.title}
+          onChange={setTitle}
+          deleteTodo={deleteTodo}
         />
-        <br />
-        <TextInput onEnterPress={this.addTask} className="taskInput" />
       </div>
-    );
-  }
-}
-
+      <TaskList
+        tasks={todo.tasks}
+        onClick={toggleTaskStatus}
+        onDelete={deleteTask}
+      />
+      <br />
+      <TextInput onEnterPress={addTask} className="taskInput" />
+    </div>
+  );
+};
 export default Todo;

@@ -1,36 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-class TextInput extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { value: props.value || '' };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleKeyUp = this.handleKeyUp.bind(this);
-  }
+const TextInput = (props) => {
+  const [state, setState] = useState({ value: props.value || '' });
 
-  handleChange(event) {
-    this.setState({ value: event.target.value });
-  }
+  const handleChange = (event) => {
+    setState({ value: event.target.value });
+  };
 
-  handleKeyUp(event) {
+  const handleKeyUp = (event) => {
     const value = event.target.value.trim();
     if (event.keyCode === 13 && value !== '') {
-      this.props.onEnterPress(this.state.value);
-      this.setState({ value: '' });
+      props.onEnterPress(state.value);
+      setState({ value: '' });
     }
-  }
+  };
 
-  render() {
-    return (
-      <input
-        type="text"
-        className={this.props.className}
-        value={this.state.value}
-        onKeyUp={this.handleKeyUp}
-        onChange={this.handleChange}
-      />
-    );
-  }
-}
+  return (
+    <input
+      type="text"
+      className={props.className}
+      value={state.value}
+      onKeyUp={handleKeyUp}
+      onChange={handleChange}
+    />
+  );
+};
 
 export default TextInput;
